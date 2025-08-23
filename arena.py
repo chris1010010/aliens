@@ -46,8 +46,19 @@ class Arena:
         if self.time_since_last_civilian > 60.0 / self.civilian_spawn_rate:
             Civilian(self)
             self.time_since_last_civilian = 0
+
+    def hits_wall(self, character):
+        return character.grid_x <= 0 or character.grid_x >= self.grid_width - 1 or character.grid_y <= 0 or character.grid_y >= self.grid_height - 1
     
-    def collision_checks(self, player):
-        if player.grid_x <= 0 or player.grid_x >= self.grid_width - 1 or player.grid_y <= 0 or player.grid_y >= self.grid_height - 1:
+    def collision_checks(self, player, civilians):
+        if self.hits_wall(player):
             print("Game over!")
             sys.exit(0)
+        
+        for civilian in civilians:
+            if self.hits_wall(civilian):
+                civilian.kill() # To do
+            elif civilian.colliding_with(player):
+                civilian.kill()
+                player.speed += 0.1
+                

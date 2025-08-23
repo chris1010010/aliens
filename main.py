@@ -41,7 +41,7 @@ def main():
             
         updatable.update(dt)
 
-        arena.collision_checks(player)
+        arena.collision_checks(player, civilians)
             
         screen.fill((0,0,0))
 

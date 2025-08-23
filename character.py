@@ -74,3 +74,6 @@ class Character(pygame.sprite.Sprite):
     def calc_position(self):
         self.position = pygame.Vector2(self.grid_x * ARENA_TILE_SIZE + ARENA_TILE_SIZE // 2, 
                                        self.grid_y * ARENA_TILE_SIZE + ARENA_TILE_SIZE // 2)
+        
+    def colliding_with(self, other):
+        return self.grid_x == other.grid_x and self.grid_y == other.grid_y
