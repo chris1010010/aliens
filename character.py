@@ -17,6 +17,7 @@ class Character(pygame.sprite.Sprite):
         self.direction = random.choice(list(Direction))
         self.speed = speed
         self.move_countdown = 1.0
+        self.turn_cooldown = 0.5
         self.colour = (255,255,255)
 
 
@@ -115,3 +116,37 @@ class Character(pygame.sprite.Sprite):
             self.direction = Direction.DOWN_RIGHT
         elif self.direction == Direction.DOWN_RIGHT:
             self.direction = Direction.DOWN
+
+
+    def try_change_direction(self, dt, upper_bound):
+        self.turn_cooldown -= dt
+        if self.turn_cooldown < 0 and random.uniform(0.0, upper_bound) < dt:
+            if bool(random.choice([True, False])):
+                self.turn_left()
+            else:
+                self.turn_right()
+            self.turn_cooldown = 0.5
+        
+    
+    def bounce(self, arena):
+        left = 0
+        right = arena.grid_width - 1
+        top = 0
+        bottom = arena.grid_height - 1
+
+        if self.grid_x == left and self.grid_y == top:
+            self.direction = Direction.DOWN_RIGHT
+        elif self.grid_x == left and self.grid_y == bottom:
+            self.direction = Direction.UP_RIGHT
+        elif self.grid_x == right and self.grid_y == top:
+            self.direction = Direction.DOWN_LEFT
+        elif self.grid_x == right and self.grid_y == bottom:
+            self.direction = Direction.UP_LEFT
+        elif self.grid_x == left:
+            self.direction = Direction.RIGHT
+        elif self.grid_x == right:
+            self.direction = Direction.LEFT
+        elif self.grid_y == top:
+            self.direction = Direction.DOWN
+        elif self.grid_y == bottom:
+            self.direction = Direction.UP

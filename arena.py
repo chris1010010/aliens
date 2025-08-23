@@ -6,6 +6,7 @@ import sys
 
 
 class Arena:
+    grid_color = (64,64,64)
 
     def __init__(self):
         self.grid_width = SCREEN_WIDTH // ARENA_TILE_SIZE
@@ -20,7 +21,7 @@ class Arena:
 
         self.spawn_eggs()
 
-    grid_color = (64,64,64)
+
 
     def draw(self, screen):
 
@@ -29,6 +30,7 @@ class Arena:
 
         for y in range(ARENA_TILE_SIZE, SCREEN_HEIGHT, ARENA_TILE_SIZE):
             pygame.draw.line(screen, Arena.grid_color, pygame.Vector2(0, y), pygame.Vector2(SCREEN_WIDTH, y))
+
 
     def spawn_eggs(self):
         for i in range(0, self.grid_width):
@@ -47,18 +49,32 @@ class Arena:
             Civilian(self)
             self.time_since_last_civilian = 0
 
+
     def hits_wall(self, character):
         return character.grid_x <= 0 or character.grid_x >= self.grid_width - 1 or character.grid_y <= 0 or character.grid_y >= self.grid_height - 1
     
-    def collision_checks(self, player, civilians):
+
+    def collision_checks(self, player, humans, aliens):
         if self.hits_wall(player):
             print("Game over!")
             sys.exit(0)
         
-        for civilian in civilians:
-            if self.hits_wall(civilian):
-                civilian.kill() # To do
-            elif civilian.colliding_with(player):
-                civilian.kill()
+        for human in humans:
+            if self.hits_wall(human):
+                if not human.infected:
+                    human.infect()
+                human.bounce(self)
+            elif human.colliding_with(player):
+                human.kill()
                 player.speed += 0.1
+            else:
+                for alien in aliens:
+                    if human.colliding_with(alien):
+                        human.kill()
+                        alien.speed += 0.1
+                        break
+
+        for alien in aliens:
+            if self.hits_wall(alien):
+                alien.bounce(self)
                 
