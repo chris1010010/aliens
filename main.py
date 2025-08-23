@@ -40,7 +40,7 @@ def main():
             if event.type == pygame.QUIT:
                 return
             
-        arena.try_spawn_civilian(dt)
+        arena.try_spawn_human(dt)
             
         updatable.update(dt)
 

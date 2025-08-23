@@ -1,6 +1,7 @@
 from character import Character
 import pygame
 from constants import ARENA_TILE_SIZE, Direction, ALIEN_MAX_PACK_SIZE
+import sys
 
 
 class Pack(Character):
@@ -39,6 +40,13 @@ class Pack(Character):
         if self.target_size < ALIEN_MAX_PACK_SIZE:
             self.target_size += 1
             #print("grow")
+
+    def shrink(self):
+        self.size -= 1
+        self.target_size -= 1
+        if self.size == 0:
+            print("Game over!")
+            sys.exit(0)
     
     def colliding_with(self, other):
         lenght = len(self.position_history)

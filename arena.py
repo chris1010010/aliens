@@ -1,8 +1,10 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ARENA_TILE_SIZE
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ARENA_TILE_SIZE, MARINE_SPAWN_CHANCE
 from egg import Egg
 from civilian import Civilian
+from marine import Marine
 import sys
+import random
 
 
 class Arena:
@@ -11,8 +13,8 @@ class Arena:
     def __init__(self):
         self.grid_width = SCREEN_WIDTH // ARENA_TILE_SIZE
         self.grid_height = SCREEN_HEIGHT // ARENA_TILE_SIZE
-        self.civilian_spawn_rate = 5 # per minute
-        self.time_since_last_civilian = 0.0
+        self.human_spawn_rate = 5 # per minute
+        self.time_since_last_human = 0.0
 
         self.top_eggs = []
         self.bottom_eggs = []
@@ -20,7 +22,6 @@ class Arena:
         self.right_eggs = []
 
         self.spawn_eggs()
-
 
 
     def draw(self, screen):
@@ -42,12 +43,15 @@ class Arena:
                 self.left_eggs.append(Egg(0, i))
                 self.right_eggs.append(Egg(self.grid_width - 1, i))
 
-    def try_spawn_civilian(self, dt):
-        self.time_since_last_civilian += dt
+    def try_spawn_human(self, dt):
+        self.time_since_last_human += dt
         
-        if self.time_since_last_civilian > 60.0 / self.civilian_spawn_rate:
-            Civilian(self)
-            self.time_since_last_civilian = 0
+        if self.time_since_last_human > 60.0 / self.human_spawn_rate:
+            if random.random() > MARINE_SPAWN_CHANCE:
+                Civilian(self)
+            else:
+                Marine(self)
+            self.time_since_last_human = 0
 
 
     def hits_wall(self, character):
@@ -67,6 +71,8 @@ class Arena:
             elif player.colliding_with(human):
                 human.kill()
                 player.speed += 0.1
+                if isinstance(human, Marine):
+                    player.shrink()
             else:
                 for alien in aliens:
                     if human.colliding_with(alien):
