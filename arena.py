@@ -8,7 +8,7 @@ import random
 
 
 class Arena:
-    grid_color = (40,40,40)
+    grid_color = (30,30,30)
 
     def __init__(self):
         self.grid_width = SCREEN_WIDTH // ARENA_TILE_SIZE

@@ -8,16 +8,21 @@ class Alien(Character):
     alien_down = pygame.image.load('assets/alien_down.png')
     alien_left = pygame.image.load('assets/alien_left.png')
     alien_right = pygame.image.load('assets/alien_right.png')
+    alien_up_left = pygame.image.load('assets/alien_up_left.png')
+    alien_up_right = pygame.image.load('assets/alien_up_right.png')
+    alien_down_left = pygame.image.load('assets/alien_down_left.png')
+    alien_down_right = pygame.image.load('assets/alien_down_right.png')
 
     def __init__(self, grid_x, grid_y):
         super().__init__(grid_x, grid_y, 1.0)
-        self.colour = (255,0,255)
+        self.colour = (0,30,0)
 
     def update(self, dt):
         self.try_change_direction(dt, 2.0)
         super().update(dt)
     
     def draw(self, screen):
+        # super().draw(screen)
         draw_alien(screen, self.position, self.direction)
 
 
@@ -32,9 +37,13 @@ def draw_alien(screen, pos, direction):
         case Direction.RIGHT:
             image = Alien.alien_right
         case Direction.DOWN_LEFT:
-            image = Alien.alien_down
+            image = Alien.alien_down_left
         case Direction.DOWN_RIGHT:
-            image = Alien.alien_down
+            image = Alien.alien_down_right
+        case Direction.UP_LEFT:
+            image = Alien.alien_up_left
+        case Direction.UP_RIGHT:
+            image = Alien.alien_up_right
         case _:
             image = Alien.alien_up
     screen.blit(image, (pos[0] - ARENA_TILE_SIZE // 2, 
