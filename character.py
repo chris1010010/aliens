@@ -19,13 +19,19 @@ class Character(pygame.sprite.Sprite):
         self.speed = speed
         self.move_countdown = 1.0
 
+
     def update(self, dt):
 
-        self.move_countdown -= dt * self.speed
+        if (self.speed > 0):
+            self.move_countdown -= dt * self.speed
 
-        if self.move_countdown <= 0:
-            self.move()
-            self.move_countdown = 1.0
+            if self.move_countdown <= 0:
+                self.move()
+                self.move_countdown = 1.0
+
+
+    def draw(self, screen):
+        pygame.draw.circle(screen, (255,255,255), self.position, ARENA_TILE_SIZE // 2, 2)
 
 
     def move(self):

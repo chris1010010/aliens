@@ -2,6 +2,7 @@ import pygame
 from constants import *
 from arena import Arena
 from player import Player
+from egg import Egg
 
 # Activate virtual enviironment in terminal:
 # source .venv/bin/activate
@@ -19,6 +20,7 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
+    Egg.containers = (updatable, drawable)
 
     arena = Arena()
     player = Player(arena)

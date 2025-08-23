@@ -27,6 +27,5 @@ class Pack(Character):
         return [a, b, c]
 
     def draw(self, screen):
-        #pygame.draw.circle(screen, (255,255,255), self.position, ARENA_TILE_SIZE // 2, 2)
         pygame.draw.polygon(screen, (255,255,255), self.triangle(), 2)
 
