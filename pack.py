@@ -2,6 +2,7 @@ from character import Character
 import pygame
 from constants import ARENA_TILE_SIZE, Direction, ALIEN_MAX_PACK_SIZE
 import sys
+from alien import draw_alien
 
 
 class Pack(Character):
@@ -20,10 +21,17 @@ class Pack(Character):
 
 
     def draw(self, screen):
+        # Lead alien
+        pygame.draw.rect(screen, self.colour, pygame.Rect(self.grid_x * ARENA_TILE_SIZE, 
+                                                          self.grid_y * ARENA_TILE_SIZE, 
+                                                          ARENA_TILE_SIZE + 1, ARENA_TILE_SIZE + 1))
+        draw_alien(screen, self.position, self.direction)
+        # Rest of pack
         lenght = len(self.position_history)
-        for i in range(lenght - 1, lenght - self.size - 1, -1):
+        for i in range(lenght - 2, lenght - self.size - 1, -1):
             pos = self.position_history[i]
-            pygame.draw.polygon(screen, self.colour, self.triangle(pos[0], pos[3]), 2)
+            draw_alien(screen, pos[0], pos[3])
+            # pygame.draw.polygon(screen, self.colour, self.triangle(pos[0], pos[3]), 2)
 
 
     def move(self):

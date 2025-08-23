@@ -18,7 +18,7 @@ class Player(Pack):
             self.direction = Direction.DOWN
         elif self.direction == Direction.DOWN_LEFT:
             self.direction = Direction.LEFT
-        self.colour = (255,0,0)
+        self.colour = (0,20,0)
         self.cooldown_timer = 0
 
     def update(self, dt):
