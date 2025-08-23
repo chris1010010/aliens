@@ -55,7 +55,7 @@ class Arena:
     
 
     def collision_checks(self, player, humans, aliens):
-        if self.hits_wall(player):
+        if self.hits_wall(player) or player.colliding_with(player):
             print("Game over!")
             sys.exit(0)
         
@@ -64,7 +64,7 @@ class Arena:
                 if not human.infected:
                     human.infect()
                 human.bounce(self)
-            elif human.colliding_with(player):
+            elif player.colliding_with(human):
                 human.kill()
                 player.speed += 0.1
             else:
@@ -77,4 +77,7 @@ class Arena:
         for alien in aliens:
             if self.hits_wall(alien):
                 alien.bounce(self)
+            elif player.colliding_with(alien):
+                alien.kill()
+                player.grow()
                 

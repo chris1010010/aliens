@@ -17,11 +17,13 @@ class Pack(Character):
             self.position_history.append((self.position, self.grid_x, self.grid_y, self.direction))
         super().update(dt)
 
+
     def draw(self, screen):
         lenght = len(self.position_history)
         for i in range(lenght - 1, lenght - self.size - 1, -1):
             pos = self.position_history[i]
             pygame.draw.polygon(screen, self.colour, self.triangle(pos[0], pos[3]), 2)
+
 
     def move(self):
         super().move()
@@ -38,3 +40,13 @@ class Pack(Character):
             self.target_size += 1
             #print("grow")
     
+    def colliding_with(self, other):
+        lenght = len(self.position_history)
+        start_offset = 0
+        if self == other:
+            start_offset = 1
+        for i in range(lenght - 1 - start_offset, lenght - self.size - 1, -1):
+            pos = self.position_history[i]
+            if pos[1] == other.grid_x and pos[2] == other.grid_y:
+                return True
+        return False
