@@ -1,6 +1,6 @@
 from pack import Pack
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ARENA_TILE_SIZE
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ARENA_TILE_SIZE, Direction
 
 
 class Player(Pack):
@@ -13,11 +13,13 @@ class Player(Pack):
     def update(self, dt):
         keys = pygame.key.get_pressed()
 
-        #if keys[pygame.K_a]:
-        #    self.rotate(-dt)
-        #if keys[pygame.K_d]:
-        #    self.rotate(dt)
-        #if keys[pygame.K_w]:
-        #    self.move(dt)
-        #if keys[pygame.K_s]:
-        #    self.move(-dt)
+        if keys[pygame.K_UP]:
+            self.direction = Direction.UP
+        elif keys[pygame.K_RIGHT]:
+            self.direction = Direction.RIGHT
+        elif keys[pygame.K_DOWN]:
+            self.direction = Direction.DOWN
+        elif keys[pygame.K_LEFT]:
+            self.direction = Direction.LEFT
+
+        super().update(dt)
