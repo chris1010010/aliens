@@ -19,6 +19,7 @@ class Player(Pack):
         elif self.direction == Direction.DOWN_LEFT:
             self.direction = Direction.LEFT
         self.colour = (255,0,0)
+        self.cooldown_timer = 0
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -31,5 +32,10 @@ class Player(Pack):
             self.direction = Direction.DOWN
         elif keys[pygame.K_LEFT]:
             self.direction = Direction.LEFT
+        elif keys[pygame.K_RETURN]:
+            if self.cooldown_timer <= 0:
+                self.cooldown_timer = 0.3
+                self.grow()
+        self.cooldown_timer -= dt
 
         super().update(dt)

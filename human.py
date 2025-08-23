@@ -2,7 +2,7 @@
 from character import Character
 import pygame
 import random
-from constants import Direction
+from constants import Direction, ALIEN_INCUBATION_TIME
 from alien import Alien
 
 class Human(Character):
@@ -41,5 +41,5 @@ class Human(Character):
 
     def infect(self):
         self.infected = True
-        self.infection_countdown = 5.0
+        self.infection_countdown = ALIEN_INCUBATION_TIME
         self.colour = (255,255,0)

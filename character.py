@@ -13,6 +13,7 @@ class Character(pygame.sprite.Sprite):
 
         self.grid_x = grid_x
         self.grid_y = grid_y
+        self.position = pygame.Vector2(0, 0)
         self.calc_position()
         self.direction = random.choice(list(Direction))
         self.speed = speed
@@ -31,9 +32,13 @@ class Character(pygame.sprite.Sprite):
                 self.move_countdown = 1.0
 
 
-    def triangle(self):
+    def triangle(self, position = None, direction = None):
+        if position == None:
+            position = self.position
+        if direction == None:
+            direction = self.direction
         rotation = 0
-        match self.direction:
+        match direction:
             case Direction.UP:
                 rotation = 180
             case Direction.UP_RIGHT:
@@ -52,10 +57,11 @@ class Character(pygame.sprite.Sprite):
         radius = ARENA_TILE_SIZE // 2
         forward = pygame.Vector2(0, 1).rotate(rotation)
         right = pygame.Vector2(0, 1).rotate(rotation + 90) * radius / 1.5
-        a = self.position + forward * radius
-        b = self.position - forward * radius - right
-        c = self.position - forward * radius + right
+        a = position + forward * radius
+        b = position - forward * radius - right
+        c = position - forward * radius + right
         return [a, b, c]
+
 
     def draw(self, screen):
         pygame.draw.polygon(screen, self.colour, self.triangle(), 2)
