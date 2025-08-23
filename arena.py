@@ -76,8 +76,11 @@ class Arena:
             else:
                 for alien in aliens:
                     if human.colliding_with(alien):
+                        if isinstance(human, Marine):
+                            alien.kill()
+                        else:
+                            alien.speed += 0.1
                         human.kill()
-                        alien.speed += 0.1
                         break
 
         for alien in aliens:
