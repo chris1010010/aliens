@@ -29,6 +29,7 @@ class Character(pygame.sprite.Sprite):
                 self.move()
                 self.move_countdown = 1.0
 
+
     def triangle(self):
         rotation = 0
         match self.direction:
@@ -59,7 +60,6 @@ class Character(pygame.sprite.Sprite):
         pygame.draw.polygon(screen, self.colour, self.triangle(), 2)
 
 
-
     def move(self):
         if self.direction == Direction.UP or self.direction == Direction.UP_LEFT or self.direction == Direction.UP_RIGHT:
             self.grid_y -= 1
@@ -71,9 +71,47 @@ class Character(pygame.sprite.Sprite):
             self.grid_x -= 1
         self.calc_position()
 
+
     def calc_position(self):
         self.position = pygame.Vector2(self.grid_x * ARENA_TILE_SIZE + ARENA_TILE_SIZE // 2, 
                                        self.grid_y * ARENA_TILE_SIZE + ARENA_TILE_SIZE // 2)
         
+
     def colliding_with(self, other):
         return self.grid_x == other.grid_x and self.grid_y == other.grid_y
+    
+    def turn_left(self):
+        if self.direction == Direction.DOWN:
+            self.direction = Direction.DOWN_RIGHT
+        elif self.direction == Direction.DOWN_RIGHT:
+            self.direction = Direction.RIGHT
+        elif self.direction == Direction.RIGHT:
+            self.direction = Direction.UP_RIGHT
+        elif self.direction == Direction.UP_RIGHT:
+            self.direction = Direction.UP
+        elif self.direction == Direction.UP:
+            self.direction = Direction.UP_LEFT
+        elif self.direction == Direction.UP_LEFT:
+            self.direction = Direction.LEFT
+        elif self.direction == Direction.LEFT:
+            self.direction = Direction.DOWN_LEFT
+        elif self.direction == Direction.DOWN_LEFT:
+            self.direction = Direction.DOWN
+
+    def turn_right(self):
+        if self.direction == Direction.DOWN:
+            self.direction = Direction.DOWN_LEFT
+        elif self.direction == Direction.DOWN_LEFT:
+            self.direction = Direction.LEFT
+        elif self.direction == Direction.LEFT:
+            self.direction = Direction.UP_LEFT
+        elif self.direction == Direction.UP_LEFT:
+            self.direction = Direction.UP
+        elif self.direction == Direction.UP:
+            self.direction = Direction.UP_RIGHT
+        elif self.direction == Direction.UP_RIGHT:
+            self.direction = Direction.RIGHT
+        elif self.direction == Direction.RIGHT:
+            self.direction = Direction.DOWN_RIGHT
+        elif self.direction == Direction.DOWN_RIGHT:
+            self.direction = Direction.DOWN

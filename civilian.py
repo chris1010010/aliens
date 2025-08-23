@@ -1,6 +1,7 @@
 
 from character import Character
 import pygame
+import random
 from constants import Direction
 
 class Civilian(Character):
@@ -23,6 +24,15 @@ class Civilian(Character):
             self.grid_y = arena.grid_height // 2
 
         self.calc_position()
+
+    def update(self, dt):
+        # Change direction
+        if random.uniform(0.0, 1.0) < dt:
+            if bool(random.choice([True, False])):
+                self.turn_left()
+            else:
+                self.turn_right()
+        super().update(dt)
 
 
     
