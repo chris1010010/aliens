@@ -3,6 +3,7 @@ from constants import *
 from arena import Arena
 from player import Player
 from egg import Egg
+from civilian import Civilian
 
 # Activate virtual enviironment in terminal:
 # source .venv/bin/activate
@@ -14,13 +15,18 @@ def main():
     pygame.init()
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Aliens")
     clock = pygame.time.Clock()
     dt = 0
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+
+    civilians = pygame.sprite.Group()
+
     Player.containers = (updatable, drawable)
     Egg.containers = (updatable, drawable)
+    Civilian.containers = (civilians, updatable, drawable)
 
     arena = Arena()
     player = Player(arena)
@@ -31,7 +37,11 @@ def main():
             if event.type == pygame.QUIT:
                 return
             
+        arena.try_spawn_civilian(dt)
+            
         updatable.update(dt)
+
+        arena.collision_checks(player)
             
         screen.fill((0,0,0))
 
