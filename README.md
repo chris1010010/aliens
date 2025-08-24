@@ -27,3 +27,5 @@ Essentially a classic snake game with Alien(s) theme.
 - Once the pack is big and fast enough, exit the area through one of the four openings
 - This leads to a corridor with two sentry guns at the end
 - At least one xenomorph has to make it past the guns to win the game
+
+![Screenshot](aliens_screenshot.png)
