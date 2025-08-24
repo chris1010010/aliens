@@ -38,6 +38,7 @@ class Marine(Human):
                 image = Marine.marine_up
         screen.blit(image, (self.position[0] - ARENA_TILE_SIZE // 2, 
                             self.position[1] - ARENA_TILE_SIZE // 2))
+        super().draw(screen)
 
 
     
