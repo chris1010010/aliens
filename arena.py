@@ -51,8 +51,10 @@ class Arena:
         if self.time_since_last_human > 60.0 / self.human_spawn_rate:
             if random.random() > MARINE_SPAWN_CHANCE:
                 Civilian(self)
+                self.stats.civilians_spawned += 1
             else:
                 Marine(self)
+                self.stats.marines_spawned += 1
             self.time_since_last_human = 0
 
 
@@ -70,12 +72,15 @@ class Arena:
             if self.hits_wall(human):
                 if not human.infected:
                     human.infect()
+                    self.stats.humans_infected += 1
                 human.bounce(self)
             elif player.colliding_with(human):
                 human.kill()
                 player.speed += SPEED_INCREASE_ON_CONSUMING_HUMAN
+                self.stats.humans_consumed_by_player += 1
                 if isinstance(human, Marine):
                     player.shrink(self.stats)
+                    self.stats.attacked_by_marine += 1
             else:
                 for alien in aliens:
                     if human.colliding_with(alien):
@@ -92,4 +97,5 @@ class Arena:
             elif player.colliding_with(alien):
                 alien.kill()
                 player.grow()
+                self.stats.aliens_added_to_pack += 1
                 
