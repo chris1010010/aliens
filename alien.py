@@ -1,5 +1,4 @@
 from character import Character
-import random
 import pygame
 from constants import ARENA_TILE_SIZE, Direction
 
