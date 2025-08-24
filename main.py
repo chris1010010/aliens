@@ -5,9 +5,12 @@ from player import Player
 from egg import Egg
 from human import Human
 from alien import Alien
+from stats import Stats
+
 
 # Activate virtual enviironment in terminal:
 # source .venv/bin/activate
+
 
 def main():
     print("Starting Aliens!")
@@ -31,7 +34,8 @@ def main():
     Human.containers = (humans, updatable, drawable)
     Alien.containers = (aliens, updatable, drawable)
 
-    arena = Arena()
+    stats = Stats()
+    arena = Arena(stats)
     player = Player(arena)
 
 

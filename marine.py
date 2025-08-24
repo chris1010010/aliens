@@ -1,7 +1,7 @@
 
 from human import Human
 import pygame
-from constants import ARENA_TILE_SIZE, Direction
+from constants import ARENA_TILE_SIZE, Direction, MARINE_START_SPEED
 
 class Marine(Human):
     marine_up = pygame.image.load('assets/marine_up.png')
@@ -14,7 +14,7 @@ class Marine(Human):
     marine_down_right = pygame.image.load('assets/marine_down_right.png')
     def __init__(self, arena):
 
-        super().__init__(arena, 0.8)
+        super().__init__(arena, MARINE_START_SPEED)
         self.colour = (0,0,255)
 
     def draw(self, screen):

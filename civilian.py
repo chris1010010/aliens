@@ -1,7 +1,7 @@
 
 from human import Human
 import pygame
-from constants import ARENA_TILE_SIZE, Direction
+from constants import ARENA_TILE_SIZE, Direction, CIVILIAN_START_SPEED
 
 class Civilian(Human):
     civ_up = pygame.image.load('assets/human_a_up.png')
@@ -14,7 +14,7 @@ class Civilian(Human):
     civ_down_right = pygame.image.load('assets/human_a_down_right.png')
 
     def __init__(self, arena):
-        super().__init__(arena, 0.7)
+        super().__init__(arena, CIVILIAN_START_SPEED)
         self.colour = (0,255,0)
 
     def draw(self, screen):

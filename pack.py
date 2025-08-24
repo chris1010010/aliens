@@ -1,14 +1,14 @@
 from character import Character
 import pygame
-from constants import ARENA_TILE_SIZE, Direction, ALIEN_MAX_PACK_SIZE
-import sys
+from constants import ARENA_TILE_SIZE, Direction, ALIEN_MAX_PACK_SIZE, PLAYER_START_SPEED
 from alien import draw_alien
+from game import exit_game
 
 
 class Pack(Character):
 
     def __init__(self, grid_x, grid_y):
-        super().__init__(grid_x, grid_y)
+        super().__init__(grid_x, grid_y, PLAYER_START_SPEED)
         self.position_history = [] # Tuple (pos, grid_x, grid_y, direction)
         self.size = 1
         self.target_size = 1
@@ -49,13 +49,14 @@ class Pack(Character):
             self.target_size += 1
             #print("grow")
 
-    def shrink(self):
+
+    def shrink(self, stats):
         self.size -= 1
         self.target_size -= 1
         if self.size == 0:
-            print("Game over!")
-            sys.exit(0)
+            exit_game(stats, "Colonial marines killed all xenomorphs of ypur pack")
     
+
     def colliding_with(self, other):
         lenght = len(self.position_history)
         start_offset = 0

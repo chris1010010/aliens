@@ -1,6 +1,6 @@
 from character import Character
 import pygame
-from constants import ARENA_TILE_SIZE, Direction
+from constants import ARENA_TILE_SIZE, Direction, ALIEN_START_SPEED
 
 class Alien(Character):
     alien_up = pygame.image.load('assets/alien_up.png')
@@ -13,7 +13,7 @@ class Alien(Character):
     alien_down_right = pygame.image.load('assets/alien_down_right.png')
 
     def __init__(self, grid_x, grid_y):
-        super().__init__(grid_x, grid_y, 1.0)
+        super().__init__(grid_x, grid_y, ALIEN_START_SPEED)
         self.colour = (0,30,0)
 
     def update(self, dt):

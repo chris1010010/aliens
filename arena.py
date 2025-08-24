@@ -1,19 +1,20 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ARENA_TILE_SIZE, MARINE_SPAWN_CHANCE
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ARENA_TILE_SIZE, MARINE_SPAWN_CHANCE, HUMAN_SPAWN_RATE, SPEED_INCREASE_ON_CONSUMING_HUMAN
 from egg import Egg
 from civilian import Civilian
 from marine import Marine
-import sys
 import random
+from game import exit_game
 
 
 class Arena:
     grid_color = (30,30,30)
 
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats = stats
         self.grid_width = SCREEN_WIDTH // ARENA_TILE_SIZE
         self.grid_height = SCREEN_HEIGHT // ARENA_TILE_SIZE
-        self.human_spawn_rate = 5 # per minute
+        self.human_spawn_rate = HUMAN_SPAWN_RATE
         self.time_since_last_human = 0.0
 
         self.top_eggs = []
@@ -43,6 +44,7 @@ class Arena:
                 self.left_eggs.append(Egg(0, i))
                 self.right_eggs.append(Egg(self.grid_width - 1, i))
 
+
     def try_spawn_human(self, dt):
         self.time_since_last_human += dt
         
@@ -59,9 +61,10 @@ class Arena:
     
 
     def collision_checks(self, player, humans, aliens):
-        if self.hits_wall(player) or player.colliding_with(player):
-            print("Game over!")
-            sys.exit(0)
+        if self.hits_wall(player):
+            exit_game(self.stats, "You hit the wall")
+        if  player.colliding_with(player):
+            exit_game(self.stats, "You collided with yourself")
         
         for human in humans:
             if self.hits_wall(human):
@@ -70,16 +73,16 @@ class Arena:
                 human.bounce(self)
             elif player.colliding_with(human):
                 human.kill()
-                player.speed += 0.1
+                player.speed += SPEED_INCREASE_ON_CONSUMING_HUMAN
                 if isinstance(human, Marine):
-                    player.shrink()
+                    player.shrink(self.stats)
             else:
                 for alien in aliens:
                     if human.colliding_with(alien):
                         if isinstance(human, Marine):
                             alien.kill()
                         else:
-                            alien.speed += 0.1
+                            alien.speed += SPEED_INCREASE_ON_CONSUMING_HUMAN
                         human.kill()
                         break
 
