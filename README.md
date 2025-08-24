@@ -20,3 +20,10 @@ Essentially a classic snake game with Alien(s) theme.
 - Some humans are colonial marines
 - If a colonial marine gets too close, you lose one xenomorph (you shrink) and the marine dies
 - The game ends if you collide with the wall, collide with yourself, or you have no xenomorphs left in your pack
+
+## Future Work
+- Right now the only goal of the game is to maximise the stats (time played, humans consumed, etc.)
+- A final boss could be added as follows:
+- Once the pack is big and fast enough, exit the area through one of the four openings
+- This leads to a corridor with two sentry guns at the end
+- At least one xenomorph has to make it past the guns to win the game
