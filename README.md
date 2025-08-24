@@ -18,5 +18,5 @@ Essentially a classic snake game with Alien(s) theme.
 - Bump into a xenomorph to add it to your pack (you grow)
 - Most humans are civilians and can't harm you
 - Some humans are colonial marines
-- If a colonial marine gets to close, you lose one xenomorph (you shrink) and the marine dies
+- If a colonial marine gets too close, you lose one xenomorph (you shrink) and the marine dies
 - The game ends if you collide with the wall, collide with yourself, or you have no xenomorphs left in your pack
