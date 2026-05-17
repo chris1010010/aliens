@@ -3,6 +3,8 @@ Boot.dev personal project.
 
 Essentially a classic snake game with Alien(s) theme.
 
+![Characters](characters.png)
+
 ## Usage
 - Uses UV virtual environment
 - Currently hard-coded to 3200 x 1800 window size
