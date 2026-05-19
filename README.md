@@ -6,7 +6,7 @@ Essentially a classic snake game with Alien(s) theme.
 ![Characters](characters.png)
 
 ## Usage
-- Uses UV virtual environment (source .venv/bin/activate)
+- Uses UV virtual environment (`source .venv/bin/activate`)
 - Currently hard-coded to 3200 x 1800 window size
 - Start with `python3 main.py`
 - Controls: cursor keys
