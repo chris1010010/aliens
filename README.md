@@ -10,6 +10,7 @@ Essentially a classic snake game with Alien(s) theme.
 - Currently hard-coded to 3200 x 1800 window size
 - Start with `python3 main.py`
 - Controls: cursor keys
+- For testing, use ENTER key to add one alien to your pack
 - Adjust game parameters in `constants.py` (window size, arena tile size, player speed, alien params, NPC spawn rate, ...)
 
 ## Game Logic
