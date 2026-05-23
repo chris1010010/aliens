@@ -5,6 +5,15 @@ Essentially a classic snake game with Alien(s) theme.
 
 ![Characters](characters.png)
 
+## Motivation
+
+Too many snakes. It's time for xenomorphs.
+
+## Quick Start
+- Install python
+- `source .venv/bin/activate`
+- `python3 main.py`
+
 ## Usage
 - Uses UV virtual environment (`source .venv/bin/activate`)
 - Currently hard-coded to 3200 x 1800 window size
@@ -31,5 +40,17 @@ Essentially a classic snake game with Alien(s) theme.
 - Once the pack is big and fast enough, exit the area through one of the four openings
 - This leads to a corridor with two sentry guns at the end
 - At least one xenomorph has to make it past the guns to win the game
+
+## Contributing
+
+### Clone
+```bash
+git clone https://github.com/chris1010010/aliens@latest
+cd aliens
+```
+
+### Submit a pull request
+
+If you'd like to contribute, please fork the repository and open a pull request to the `main` branch.
 
 ![Screenshot](aliens_screenshot.png)
